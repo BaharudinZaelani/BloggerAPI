@@ -1,0 +1,43 @@
+<?php 
+/* 
+ * ========================================================
+ *                  CRICKETS Version 1.1.0
+ *                      #CrazyStatic
+ * ========================================================
+
+ * APP CONFIG
+ * Where basic property your Application here .
+ * 
+*/
+define("APP_NAME", htmlspecialchars("Edit your blog easly")); // This a app name for your project
+define("PATH", $_SERVER['DOCUMENT_ROOT']); // Used for js/css or other static path
+
+define("SERVER", "127.0.0.1:3000"); // local server url path your project run
+define("URI", "http://" . SERVER ); 
+
+/*
+ * This setup database .... yess.
+ * Only MYSQL that can be used
+ * 
+ * if you want to use another method
+ * don't use this feature
+ * please use it with curl
+ * or JS librarys
+ * 
+*/
+define("HOST", "localhost");
+define("USER", "root");
+define("PASSWORD", "");
+define("DB_NAME", "bahar_profile");
+
+/*
+ * set the value to true if your application using database
+ * but your application not using database , you know what value needs to be set? ¯\_(ツ)_/¯
+*/
+define("USING_DB", false);
+
+// Googleapis
+define("API_KEYS", "AIzaSyAQQ-F_JHc4HmN7pGz5Beuua8QDrfpsq6c");
+define("CLIENT_ID", "739464717616-r22db2t27e2cu0dcekt044md06lrp5ml.apps.googleusercontent.com");
+define("CLIENT_SECRET", "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");
+define("CREDENTIAL_JSON", "zawblog_credential.json");

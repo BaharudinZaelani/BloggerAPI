@@ -1,0 +1,139 @@
+<?php 
+include "config";
+$key = end($argv);
+
+// start server
+if ( $key == "serve" ){
+    $command = "php -S ". SERVER ." -t " . __DIR__ ;
+    shell_exec($command);
+}
+
+// path
+$controller = "./app/controller/";
+$models = "./app/models/";
+$logic = "./app/logic/";
+$temp = "./crickets/temp_";
+
+// create code 
+if ( $argv[1] == "create" ) {
+    if ( !empty($argv[2]) ) {
+        if ( isset( $argv[2] ) ) {
+            $mc = explode(":", $argv[2])[0];
+            $keyword = explode(":", $argv[2])[1];
+        }
+
+        // controller
+        // ex : php local create controller:controller_name
+        if ( $mc == "controller" ) {
+
+
+            echo "\nCreate File Controller !!! please be patient ! \n";
+            // create dump file
+            $fi = fopen($temp . "controller.php", "r");
+            $code = fread($fi, filesize($temp . "controller.php"));
+            $exp = explode(":", $argv[2]);
+            $fName = end($exp);
+            $code = str_replace("className", $fName, $code);
+            fclose($fi);
+
+            // var_dump($code);die;
+
+
+            echo "Saving file to folder controller \n";
+            // save file
+            $f = fopen($controller . $fName . ".php", "w");
+            fwrite($f, $code);
+            fclose($f);
+
+
+            echo "Controller created :3 ";
+            echo "\n=========================\n\n\n\n\n\n\n";
+        }
+
+        // models
+        // ex : php local create model:model_name
+        if ( $mc == "model" ) {
+            if ( !empty($argv[3]) ) {
+                // create dump file
+                $fi = fopen($temp . "models.php", "r");
+                $code = fread($fi, filesize($temp . "models.php"));
+                $exp = explode(":", $argv[3]);
+                $fName = end($exp);
+                $code = str_replace("className", $keyword, $code);
+                $code = str_replace("TableName", $fName, $code);
+                fclose($fi);
+
+
+
+                echo "Saving file to folder models \n";
+                // save file
+                $f = fopen($models . $keyword . ".php", "w");
+                fwrite($f, $code);
+                fclose($f);
+                exit;
+            }
+            echo "Required models Table Name!";
+            exit;
+        }
+
+        // create database
+        // ex : php local create database:db_name
+        if ( $mc == "database" ) {
+            if ( !empty($keyword) ) {
+                echo "Connect to database\n";
+                $con = mysqli_connect(HOST, USER, PASSWORD);
+                echo "DONE !";
+
+                echo "\nCreate new database " . $keyword . "\n";
+                mysqli_query($con, "CREATE DATABASE " . $keyword);
+                echo "DONE !";
+                exit;
+            }
+        }
+
+    }
+}
+
+// migrate database
+// ex : php local migrate
+if ( $argv[1] == "migrate" ) {
+    // migrate data table
+    $dir = "./database/create";
+    $files = scandir($dir, 1);
+    for ( $i = 0; $i < count($files) - 2; $i++ ) {
+        include $dir . "/" .$files[$i];
+        
+        // get file name
+        echo "\nGet File data \n";
+        $filename = explode(".", $files[$i]);
+        echo "Done \n";
+        
+        // string query
+        echo "========================\nCreate string query \n";
+        $query = "CREATE TABLE IF NOT EXISTS " . $filename[0] . " (";
+        
+        foreach ( $tables as $key => $rowTb ) {
+            // get data row
+            $query .= " $key $rowTb,";
+        }
+        $query .= ");";
+        
+        // finishing (remove last comma)
+        $result = str_replace(",);", ");", $query);
+        echo "Done \n";
+        
+        // connect to db
+        echo "========================\nConnect to Database \n";
+        $con = mysqli_connect(HOST, USER, PASSWORD, DB_NAME);
+        echo "Done \n";
+        
+        // execute table
+        echo "========================\nExecute Query \n";
+        mysqli_query($con, $result);
+        echo "Done\n";
+
+        echo "========================\nFinal Query Execute ======================== \n";
+        echo $result;
+        echo "\nFinal Query Execute ======================== \n";
+    }
+}
