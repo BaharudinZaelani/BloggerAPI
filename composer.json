@@ -1,0 +1,17 @@
+{
+    "name": "bahar/ytapi",
+    "autoload": {
+        "psr-4": {
+            "Bahar\\Ytapi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Zaelani",
+            "email": "bahar32harz@gmail.com"
+        }
+    ],
+    "require": {
+        "google/apiclient": "2.12.1"
+    }
+}
