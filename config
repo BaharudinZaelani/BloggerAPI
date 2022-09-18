@@ -8,12 +8,17 @@
  * APP CONFIG
  * Where basic property your Application here .
  * 
+ * Note : Not supported for localhost/xampp/ampp or other server app.
+ * If you want run server, please run in to php server not xampp server
+ * with command line : php local serve
+ * 
 */
-define("APP_NAME", htmlspecialchars("Edit your blog easly")); // This a app name for your project
+define("APP_NAME", htmlspecialchars("ZBLOG - by : @BaharDev")); // This a app name for your project
 define("PATH", $_SERVER['DOCUMENT_ROOT']); // Used for js/css or other static path
 
 define("SERVER", "127.0.0.1:3000"); // local server url path your project run
 define("URI", "http://" . SERVER ); 
+
 
 /*
  * This setup database .... yess.
@@ -30,11 +35,14 @@ define("USER", "root");
 define("PASSWORD", "");
 define("DB_NAME", "bahar_profile");
 
+
 /*
  * set the value to true if your application using database
  * but your application not using database , you know what value needs to be set? ¯\_(ツ)_/¯
+ * 
 */
 define("USING_DB", false);
+
 
 // Googleapis
 define("API_KEYS", "AIzaSyAQQ-F_JHc4HmN7pGz5Beuua8QDrfpsq6c");

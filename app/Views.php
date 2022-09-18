@@ -68,4 +68,9 @@ class Views {
     public static function assets($path){
         return URI . "assets/" . $path;
     }
+
+    // notification // lom jadi lurdd males :(
+    public static function notif($string) {
+        Views::getComponents("notif");
+    }
 }

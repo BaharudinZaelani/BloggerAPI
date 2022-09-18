@@ -30,8 +30,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   
 </head>
-<body>
+<body class="bg-dark">
     <div class="container-fluid bg-dark text-light">
+        <!-- hargai pembuat program dengan jangan menghapus watermark -->
+        <div class="container mb-1">
+            Powered By : @BaharDev <br>
+            FW : CRICKETS 1
+        </div>
         <!-- tidak mengerti ? jangan ubah ini ! -->
         <?php foreach( Views::getContentBody() as $row ) : ?>
             <?php include $row;?>
