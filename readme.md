@@ -1,4 +1,4 @@
-
+![zblog preview](https://baharudinzaelani.github.io/blogAPK/image/bloggerapi.png)
 # ZBLOG
 ZBLOG api for blogger "Edit your Blog easly" 
 
@@ -11,6 +11,8 @@ ZBLOG api for blogger "Edit your Blog easly"
 
 ## Version List
 [Project Release Page](https://github.com/BaharudinZaelani/ZBLOG/releases)
+or
+[Download latest version](https://github.com/BaharudinZaelani/ZBLOG/archive/refs/heads/main.zip)
 
 ## Installation
 
