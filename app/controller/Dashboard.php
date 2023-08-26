@@ -28,16 +28,25 @@ class Dashboard extends Views {
                 $sintax = [
                     "content" => ( isset($_POST['content']) ? $_POST['content'] : "" ),
                     "head" => ( isset($_POST['head']) ? $_POST['head'] : "" ),
-                    "plugin" => ( isset($_POST['plugin']) ? $_POST['plugin'] : "" )
+                    "plugin" => ( isset($_POST['plugin']) ? $_POST['plugin'] : "" ),
+                    "singelitem" => ( isset($_POST['singelitem']) ? $_POST['singelitem'] : "" )
                 ];
                 $targetDir = PATH . "/bhook";
 
                 // get base and section
-                $section = BlogLogic::loadTemplate($targetDir . "/section.html");
+                $global = BlogLogic::loadTemplate($targetDir . "/global.html");
+
+                // BUG !!!1
+                // if ( !empty($sintax['singelitem']) ) {
+                //     $singelitem = BlogLogic::loadTemplate($targetDir . "/singelitem.html");
+                    
+                //     $section = str_replace("@item", $singelitem, $global);
+                // }
+
                 $base = BlogLogic::loadTemplate($targetDir . "/base.html");
 
                 // create tmp file for section
-                $sectionResult = str_replace("@content_client", $sintax['content'], $section);
+                $sectionResult = str_replace("@content_client", $sintax['content'], $global);
                 BlogLogic::createFile($targetDir . "/tmp/" , time() . ".zaw", $sectionResult);
 
                 // get result section
@@ -53,12 +62,6 @@ class Dashboard extends Views {
                 $resPlugin = str_replace("@plugin", $sintax['plugin'], $resHead);
 
                 // result
-                /* gawean broo. BaharDevSide !!!!, 
-                 * tambahan logika ker ngasupken script javaScript. 
-                 * Meh gampang engke maneh ngadevloyna TAI !!!
-                 * 
-                 * @BaharClientSide
-                */
                 $coreJs = BlogLogic::loadTemplate($targetDir . "/core/app.js");
                 $result = str_replace("@core", $coreJs, $resPlugin);
 
@@ -70,12 +73,13 @@ class Dashboard extends Views {
             return;
         }
         
-        // documentasi
+        // documentation
         if ( isset($key[0]) AND $key[0] == "doc" ) {
             Views::setContentBody(["contents/dashboard/doc"]);
             return;
         }
 
+        // dashboard index
         if ( isset( $_SESSION['google']['blog']['blogid'] ) ) {
             if ( !isset($_SESSION['google']['blog']['data']) ) {
                 App::redirect("/dashboard");
